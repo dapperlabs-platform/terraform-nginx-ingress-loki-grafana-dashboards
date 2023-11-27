@@ -111,7 +111,7 @@
     },
     "timepicker": {},
     "timezone": "",
-    "title": "nginx Log Search",
+    "title": "Web nginx Log Search",
     "uid": "${UID_REPLACE}",
     "version": 2,
     "weekStart": ""
