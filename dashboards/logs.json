@@ -1,0 +1,107 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": {
+            "type": "grafana",
+            "uid": "-- Grafana --"
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 2448,
+    "links": [],
+    "liveNow": false,
+    "panels": [
+      {
+        "datasource": {
+          "type": "loki",
+          "uid": "${LOKI_DATASOURCE_REPLACE}"
+        },
+        "gridPos": {
+          "h": 22,
+          "w": 24,
+          "x": 0,
+          "y": 0
+        },
+        "id": 18,
+        "options": {
+          "dedupStrategy": "exact",
+          "enableLogDetails": true,
+          "prettifyLogMessage": false,
+          "showCommonLabels": false,
+          "showLabels": false,
+          "showTime": true,
+          "sortOrder": "Descending",
+          "wrapLogMessage": false
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "UwPkHAI7z"
+            },
+            "editorMode": "code",
+            "expr": "{app=\"nginx-ingress-controller\", env=\"${ENVIRONMENT_REPLACE}\"} | logfmt | line_format \"ip={{.true_client_ip}} status={{.status}} request=\\\"{{.request}}\\\"\"  |= `$Filter`",
+            "queryType": "range",
+            "refId": "A"
+          }
+        ],
+        "title": "Filtered Logs",
+        "type": "logs"
+      }
+    ],
+    "refresh": "5m",
+    "schemaVersion": 39,
+    "tags": [
+        "sre",
+        "nginx",
+        "${PRODUCT_REPLACE}",
+        "${ENVIRONMENT_REPLACE}",
+        "${PRODUCT_REPLACE}-${ENVIRONMENT_REPLACE}"
+    ],
+    "templating": {
+      "list": [
+        {
+          "current": {
+            "selected": false,
+            "text": "",
+            "value": ""
+          },
+          "description": "Search logs here",
+          "hide": 0,
+          "label": "Log Filter",
+          "name": "Filter",
+          "options": [
+            {
+              "selected": true,
+              "text": "",
+              "value": ""
+            }
+          ],
+          "query": "",
+          "skipUrlSync": false,
+          "type": "textbox"
+        }
+      ]
+    },
+    "time": {
+      "from": "now-12h",
+      "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "nginx Log Search",
+    "uid": "${UID_REPLACE}",
+    "version": 2,
+    "weekStart": ""
+  }

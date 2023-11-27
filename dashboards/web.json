@@ -1,0 +1,1761 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": {
+            "type": "grafana",
+            "uid": "-- Grafana --"
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "type": "dashboard"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${LOKI_DATASOURCE_REPLACE}"
+          },
+          "enable": true,
+          "expr": "{job=\"dapperlabs/actions/loki-logpush\", env=\"${ENVIRONMENT_REPLACE}\"}",
+          "iconColor": "red",
+          "instant": false,
+          "name": "Deploy"
+        }
+      ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 2447,
+    "links": [
+        {
+          "icon": "external link",
+          "includeVars": true,
+          "keepTime": true,
+          "tags": [
+            "${PRODUCT_REPLACE}-${ENVIRONMENT_REPLACE}"
+          ],
+          "targetBlank": false,
+          "type": "dashboards"
+        }
+      ],
+    "liveNow": false,
+    "panels": [
+      {
+        "datasource": {
+          "type": "loki",
+          "uid": "${LOKI_DATASOURCE_REPLACE}"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "light-blue",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 13,
+          "w": 12,
+          "x": 0,
+          "y": 0
+        },
+        "id": 12,
+        "interval": "30s",
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "sum"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "auto",
+          "wideLayout": true
+        },
+        "pluginVersion": "10.3.0-63516",
+        "targets": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "${LOKI_DATASOURCE_REPLACE}"
+            },
+            "editorMode": "code",
+            "expr": "sum by (status) (count_over_time({app=\"${APP_NAME}\", env=\"${ENVIRONMENT_REPLACE}\"} | logfmt | status!=\"\" | __error__=\"\" [$__interval]))",
+            "legendFormat": "HTTP Status: {{status}}",
+            "queryType": "range",
+            "refId": "A"
+          }
+        ],
+        "title": "Requests per status code",
+        "transformations": [],
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "loki",
+          "uid": "${LOKI_DATASOURCE_REPLACE}"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 100,
+              "gradientMode": "opacity",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "insertNulls": false,
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "never",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "decbytes"
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Bytes sent"
+              },
+              "properties": [
+                {
+                  "id": "color",
+                  "value": {
+                    "fixedColor": "light-blue",
+                    "mode": "fixed"
+                  }
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "appfelstrudel"
+              },
+              "properties": [
+                {
+                  "id": "color",
+                  "value": {
+                    "fixedColor": "yellow",
+                    "mode": "fixed"
+                  }
+                }
+              ]
+            },
+            {
+              "__systemRef": "hideSeriesFrom",
+              "matcher": {
+                "id": "byNames",
+                "options": {
+                  "mode": "exclude",
+                  "names": [
+                    "Bytes sent"
+                  ],
+                  "prefix": "All except:",
+                  "readOnly": true
+                }
+              },
+              "properties": [
+                {
+                  "id": "custom.hideFrom",
+                  "value": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 13,
+          "w": 12,
+          "x": 12,
+          "y": 0
+        },
+        "id": 15,
+        "interval": "30s",
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "multi",
+            "sort": "none"
+          }
+        },
+        "pluginVersion": "10.3.0-62838",
+        "targets": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "${LOKI_DATASOURCE_REPLACE}"
+            },
+            "editorMode": "code",
+            "expr": "sum by (host) (sum_over_time({app=\"${APP_NAME}\", env=\"${ENVIRONMENT_REPLACE}\"} | logfmt | status=200 | unwrap body_bytes_sent |  __error__=\"\" [$__interval]))",
+            "legendFormat": "Bytes sent",
+            "queryType": "range",
+            "refId": "A"
+          }
+        ],
+        "title": "Bytes Sent",
+        "transformations": [],
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "loki",
+          "uid": "${LOKI_DATASOURCE_REPLACE}"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "purple",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 12,
+          "x": 0,
+          "y": 13
+        },
+        "id": 13,
+        "interval": "30s",
+        "options": {
+          "colorMode": "background",
+          "graphMode": "none",
+          "justifyMode": "center",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "sum"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "value",
+          "wideLayout": true
+        },
+        "pluginVersion": "10.3.0-63516",
+        "targets": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "${LOKI_DATASOURCE_REPLACE}"
+            },
+            "expr": "sum by(host) (count_over_time({app=\"${APP_NAME}\", env=\"${ENVIRONMENT_REPLACE}\"}[$__interval]))  ",
+            "legendFormat": "",
+            "refId": "A"
+          }
+        ],
+        "title": "Total requests  ",
+        "transformations": [],
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "loki",
+          "uid": "${LOKI_DATASOURCE_REPLACE}"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "max": 100,
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "super-light-yellow",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 5
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 12,
+          "x": 12,
+          "y": 13
+        },
+        "id": 14,
+        "links": [],
+        "maxDataPoints": 1,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "none",
+          "justifyMode": "center",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "value",
+          "wideLayout": true
+        },
+        "pluginVersion": "10.3.0-63516",
+        "targets": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "${LOKI_DATASOURCE_REPLACE}"
+            },
+            "expr": " sum(rate({app=\"${APP_NAME}\", env=\"${ENVIRONMENT_REPLACE}\"} | logfmt | status >= 500 |__error__=\"\"[$__interval])) / (sum(rate({app=\"${APP_NAME}\", env=\"${ENVIRONMENT_REPLACE}\"} | logfmt | __error__=\"\"[$__interval])) / 100)",
+            "legendFormat": "",
+            "refId": "A"
+          }
+        ],
+        "title": "% of 5xx requests ",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "loki",
+          "uid": "${LOKI_DATASOURCE_REPLACE}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "insertNulls": false,
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 9,
+          "w": 12,
+          "x": 0,
+          "y": 17
+        },
+        "id": 1,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "${LOKI_DATASOURCE_REPLACE}"
+            },
+            "editorMode": "code",
+            "expr": "sum(rate({app=\"${APP_NAME}\", env=\"${ENVIRONMENT_REPLACE}\"}\n|=\"ingress\" !=\"stderr\"\n| logfmt [5m])) by (status)",
+            "queryType": "range",
+            "refId": "A"
+          }
+        ],
+        "title": "Requests by Status Code",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "loki",
+          "uid": "${LOKI_DATASOURCE_REPLACE}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "insertNulls": false,
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 9,
+          "w": 12,
+          "x": 12,
+          "y": 17
+        },
+        "id": 9,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "${LOKI_DATASOURCE_REPLACE}"
+            },
+            "editorMode": "code",
+            "expr": "sum(rate({app=\"${APP_NAME}\", env=\"${ENVIRONMENT_REPLACE}\"}\n|=\"ingress\" !=\"stderr\"\n| logfmt\n| status!~\"[123].+\" [5m])) by (status, proxy_upstream_name)",
+            "queryType": "range",
+            "refId": "A"
+          }
+        ],
+        "title": "Only 4xx/5xx HTTP Requests by Application",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "loki",
+          "uid": "${LOKI_DATASOURCE_REPLACE}"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "custom": {
+              "align": "auto",
+              "cellOptions": {
+                "type": "auto"
+              },
+              "filterable": false,
+              "inspect": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Requests"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 300
+                },
+                {
+                  "id": "custom.cellOptions",
+                  "value": {
+                    "mode": "gradient",
+                    "type": "gauge"
+                  }
+                },
+                {
+                  "id": "color",
+                  "value": {
+                    "mode": "continuous-BlPu"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 26
+        },
+        "id": 16,
+        "interval": "1h",
+        "options": {
+          "cellHeight": "sm",
+          "footer": {
+            "countRows": false,
+            "fields": "",
+            "reducer": [
+              "sum"
+            ],
+            "show": false
+          },
+          "showHeader": true,
+          "sortBy": [
+            {
+              "desc": true,
+              "displayName": "Requests"
+            }
+          ]
+        },
+        "pluginVersion": "10.3.0-63516",
+        "targets": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "${LOKI_DATASOURCE_REPLACE}"
+            },
+            "expr": "topk(10, sum by (http_user_agent) (count_over_time({app=\"${APP_NAME}\", env=\"${ENVIRONMENT_REPLACE}\"} | logfmt | http_user_agent !~ \".*bot.*\" | http_user_agent !~ \".*crawler.*\" | http_user_agent != \"worldping-api\" |  __error__=\"\" [$__interval])))",
+            "legendFormat": "{{http_user_agent}}",
+            "refId": "A"
+          }
+        ],
+        "title": "Top User Agents",
+        "transformations": [
+          {
+            "id": "reduce",
+            "options": {
+              "reducers": [
+                "sum"
+              ]
+            }
+          },
+          {
+            "id": "organize",
+            "options": {
+              "excludeByName": {
+                "Field": false
+              },
+              "indexByName": {},
+              "renameByName": {
+                "Field": "Agent",
+                "Total": "Requests"
+              }
+            }
+          }
+        ],
+        "type": "table"
+      },
+      {
+        "datasource": {
+          "type": "loki",
+          "uid": "${LOKI_DATASOURCE_REPLACE}"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "custom": {
+              "align": "auto",
+              "cellOptions": {
+                "type": "auto"
+              },
+              "filterable": false,
+              "inspect": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Requests"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 300
+                },
+                {
+                  "id": "custom.cellOptions",
+                  "value": {
+                    "mode": "gradient",
+                    "type": "gauge"
+                  }
+                },
+                {
+                  "id": "color",
+                  "value": {
+                    "mode": "continuous-BlPu"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 26
+        },
+        "id": 11,
+        "interval": "30m",
+        "options": {
+          "cellHeight": "sm",
+          "footer": {
+            "countRows": false,
+            "fields": "",
+            "reducer": [
+              "sum"
+            ],
+            "show": false
+          },
+          "showHeader": true,
+          "sortBy": [
+            {
+              "desc": true,
+              "displayName": "Requests"
+            }
+          ]
+        },
+        "pluginVersion": "10.3.0-63516",
+        "targets": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "${LOKI_DATASOURCE_REPLACE}"
+            },
+            "editorMode": "code",
+            "expr": "topk(20, sum by (true_client_ip) (count_over_time({app=\"${APP_NAME}\", env=\"${ENVIRONMENT_REPLACE}\"} | logfmt | http_user_agent !~ \".*bot.*\" | http_user_agent !~ \".*crawler.*\" | true_client_ip !~ \"35.236.203.238\" | true_client_ip !~ \"35.245.111.20\" | true_client_ip !~ \"34.145.190.143\" | true_client_ip !~ \"34.86.70.28\" | true_client_ip !~ \"34.86.56.199\" | true_client_ip !~ \"34.73.58.112\" | true_client_ip !~ \"35.185.47.116\" | true_client_ip !~ \"34.138.128.79\" | http_user_agent != \"worldping-api\" | request_uri !~ \"/robots.txt\" |  __error__=\"\" [$__interval])))",
+            "legendFormat": "{{true_client_ip}}",
+            "queryType": "range",
+            "refId": "A"
+          }
+        ],
+        "title": "Top IPs",
+        "transformations": [
+          {
+            "id": "reduce",
+            "options": {
+              "reducers": [
+                "sum"
+              ]
+            }
+          },
+          {
+            "id": "organize",
+            "options": {
+              "excludeByName": {
+                "Field": false
+              },
+              "indexByName": {},
+              "renameByName": {
+                "Field": "IP Address",
+                "Total": "Requests"
+              }
+            }
+          }
+        ],
+        "type": "table"
+      },
+      {
+        "datasource": {
+          "type": "loki",
+          "uid": "${LOKI_DATASOURCE_REPLACE}"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "custom": {
+              "align": "auto",
+              "cellOptions": {
+                "type": "auto"
+              },
+              "filterable": false,
+              "inspect": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Total"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 300
+                },
+                {
+                  "id": "custom.cellOptions",
+                  "value": {
+                    "mode": "gradient",
+                    "type": "gauge"
+                  }
+                },
+                {
+                  "id": "color",
+                  "value": {
+                    "mode": "continuous-BlPu"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 10,
+          "w": 24,
+          "x": 0,
+          "y": 34
+        },
+        "id": 10,
+        "interval": "5m",
+        "options": {
+          "cellHeight": "sm",
+          "footer": {
+            "countRows": false,
+            "fields": "",
+            "reducer": [
+              "sum"
+            ],
+            "show": false
+          },
+          "showHeader": true,
+          "sortBy": [
+            {
+              "desc": true,
+              "displayName": "Total"
+            }
+          ]
+        },
+        "pluginVersion": "10.3.0-63516",
+        "targets": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "${LOKI_DATASOURCE_REPLACE}"
+            },
+            "expr": "topk(10,sum by (request_uri) (count_over_time({app=\"${APP_NAME}\", env=\"${ENVIRONMENT_REPLACE}\"} | logfmt | http_user_agent !~ \".*bot.*\" | http_user_agent !~ \".*crawler.*\" | request_uri != \"/\" | request_uri !~ \"/wp-.*\" | request_uri !~ \"//wp-.*\" | request_uri !~ \"/*.wordfence.*\" | request_uri !~ \"/robots.txt\" | request_uri !~ \"/xmlrpc.php\" | __error__=\"\" [$__interval])))",
+            "legendFormat": "{{request_uri}}",
+            "refId": "A"
+          }
+        ],
+        "title": "Top Requested Pages - Excluding '/'",
+        "transformations": [
+          {
+            "id": "reduce",
+            "options": {
+              "reducers": [
+                "sum"
+              ]
+            }
+          },
+          {
+            "id": "organize",
+            "options": {
+              "excludeByName": {},
+              "indexByName": {},
+              "renameByName": {
+                "Field": "Page",
+                "Total": ""
+              }
+            }
+          }
+        ],
+        "type": "table"
+      },
+      {
+        "datasource": {
+          "type": "loki",
+          "uid": "${LOKI_DATASOURCE_REPLACE}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "insertNulls": false,
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 11,
+          "w": 24,
+          "x": 0,
+          "y": 44
+        },
+        "id": 2,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "${LOKI_DATASOURCE_REPLACE}"
+            },
+            "editorMode": "code",
+            "expr": "sum(rate({app=\"${APP_NAME}\", env=\"${ENVIRONMENT_REPLACE}\"}\n|=\"ingress\" !=\"stderr\"\n| logfmt | proxy_upstream_name!=\"\" [5m])) by (proxy_upstream_name)",
+            "queryType": "range",
+            "refId": "A"
+          }
+        ],
+        "title": "Requests by Application",
+        "type": "timeseries"
+      },
+      {
+        "collapsed": false,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 55
+        },
+        "id": 20,
+        "panels": [],
+        "title": "Backend",
+        "type": "row"
+      },
+      {
+        "datasource": {
+          "type": "loki",
+          "uid": "${LOKI_DATASOURCE_REPLACE}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "points",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "insertNulls": false,
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 56
+        },
+        "id": 8,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "${LOKI_DATASOURCE_REPLACE}"
+            },
+            "editorMode": "code",
+            "expr": "avg_over_time(\n{app=\"${APP_NAME}\", env=\"${ENVIRONMENT_REPLACE}\"}\n|=\"ingress\" !=\"stderr\"\n| logfmt\n| proxy_upstream_name=\"backend-consumer-graphql-api-web\"\n| unwrap upstream_response_time | __error__=\"\" [1m]) by (proxy_upstream_name)",
+            "queryType": "range",
+            "refId": "A"
+          }
+        ],
+        "title": "Average BE Response Time",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "loki",
+          "uid": "${LOKI_DATASOURCE_REPLACE}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "points",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "insertNulls": false,
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 56
+        },
+        "id": 7,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "${LOKI_DATASOURCE_REPLACE}"
+            },
+            "editorMode": "code",
+            "expr": "quantile_over_time(0.99,\n{app=\"${APP_NAME}\", env=\"${ENVIRONMENT_REPLACE}\"}\n|=\"ingress\" !=\"stderr\"\n| logfmt\n| proxy_upstream_name=\"backend-consumer-graphql-api-web\"\n| request_uri!=\"/consumer/graphql?authorizePackNFTsMinting\"\n| unwrap upstream_response_time | __error__=\"\" [1m]) by (proxy_upstream_name, request_uri)",
+            "queryType": "range",
+            "refId": "A"
+          }
+        ],
+        "title": "P99 Backend Response Time by Request URI",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "loki",
+          "uid": "${LOKI_DATASOURCE_REPLACE}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "insertNulls": false,
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 11,
+          "w": 24,
+          "x": 0,
+          "y": 64
+        },
+        "id": 17,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "${LOKI_DATASOURCE_REPLACE}"
+            },
+            "editorMode": "code",
+            "expr": "topk(10, sum(rate({app=\"${APP_NAME}\", env=\"${ENVIRONMENT_REPLACE}\"}\n|=\"ingress\" !=\"stderr\"\n| logfmt | uri=~\"\\\\/api\\\\/.+\" [5m])) by (uri))",
+            "queryType": "range",
+            "refId": "A"
+          }
+        ],
+        "title": "Top BE URLs",
+        "type": "timeseries"
+      },
+      {
+        "collapsed": false,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 75
+        },
+        "id": 21,
+        "panels": [],
+        "title": "Frontend",
+        "type": "row"
+      },
+      {
+        "datasource": {
+          "type": "loki",
+          "uid": "${LOKI_DATASOURCE_REPLACE}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "points",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "insertNulls": false,
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 76
+        },
+        "id": 6,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "${LOKI_DATASOURCE_REPLACE}"
+            },
+            "editorMode": "code",
+            "expr": "avg_over_time(\n{app=\"${APP_NAME}\", env=\"${ENVIRONMENT_REPLACE}\"}\n|=\"ingress\" !=\"stderr\"\n| logfmt\n| proxy_upstream_name=\"frontend-nfl-app-v1-web\"\n| unwrap upstream_response_time | __error__=\"\" [1m]) by (proxy_upstream_name)",
+            "queryType": "range",
+            "refId": "A"
+          }
+        ],
+        "title": "Average FE Response Time",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "loki",
+          "uid": "${LOKI_DATASOURCE_REPLACE}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "insertNulls": false,
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 76
+        },
+        "id": 5,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "${LOKI_DATASOURCE_REPLACE}"
+            },
+            "editorMode": "code",
+            "expr": "quantile_over_time(0.99,\n{app=\"${APP_NAME}\", env=\"${ENVIRONMENT_REPLACE}\"}\n|=\"ingress\" !=\"stderr\"\n| logfmt\n| proxy_upstream_name=\"frontend-nfl-app-v1-web\"\n| unwrap upstream_response_time | __error__=\"\" [1m]) by (proxy_upstream_name)",
+            "queryType": "range",
+            "refId": "A"
+          }
+        ],
+        "title": "P99 FE Response Time",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "loki",
+          "uid": "${LOKI_DATASOURCE_REPLACE}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "insertNulls": false,
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 10,
+          "w": 12,
+          "x": 0,
+          "y": 84
+        },
+        "id": 4,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "${LOKI_DATASOURCE_REPLACE}"
+            },
+            "editorMode": "code",
+            "expr": "topk(10, sum(rate({app=\"${APP_NAME}\", env=\"${ENVIRONMENT_REPLACE}\"}\n|=\"ingress\" !=\"stderr\"\n| logfmt | proxy_upstream_name=\"frontend-nfl-app-v1-web\" | uri!=\"/\" | uri!~\"\\\\/_next\\\\/data\\\\/.+\" | uri!~\"\\\\/api/.+\" [5m])) by (uri))",
+            "queryType": "range",
+            "refId": "A"
+          }
+        ],
+        "title": "Top FE URLs excluding /, /_next/data and /api/",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "loki",
+          "uid": "${LOKI_DATASOURCE_REPLACE}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "insertNulls": false,
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 10,
+          "w": 12,
+          "x": 12,
+          "y": 84
+        },
+        "id": 3,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "loki",
+              "uid": "${LOKI_DATASOURCE_REPLACE}"
+            },
+            "editorMode": "code",
+            "expr": "topk(10, sum(rate({app=\"${APP_NAME}\", env=\"${ENVIRONMENT_REPLACE}\"}\n|=\"ingress\" !=\"stderr\"\n| logfmt | proxy_upstream_name=\"frontend-nfl-app-v1-web\" | uri!=\"/api/flags\" [5m])) by (uri))",
+            "queryType": "range",
+            "refId": "A"
+          }
+        ],
+        "title": "Topk 10 FE Requests by URI",
+        "type": "timeseries"
+      }
+    ],
+    "refresh": "5m",
+    "schemaVersion": 39,
+    "tags": [
+        "sre",
+        "nginx",
+        "${PRODUCT_REPLACE}",
+        "${ENVIRONMENT_REPLACE}",
+        "${PRODUCT_REPLACE}-${ENVIRONMENT_REPLACE}"
+    ],
+    "templating": {
+      "list": []
+    },
+    "time": {
+      "from": "now-12h",
+      "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "Web Metrics from nginx Logs",
+    "uid": "${UID_REPLACE}",
+    "version": 12,
+    "weekStart": ""
+  }
