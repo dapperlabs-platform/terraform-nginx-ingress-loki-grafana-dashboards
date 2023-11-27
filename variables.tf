@@ -33,3 +33,14 @@ variable "loki_datasource" {
   description = "Loki Datasource"
   type        = string
 }
+
+variable "frontend_name" {
+  description = "Frontend Name"
+  type        = string
+}
+
+variable "backend_name" {
+  description = "Backend Name"
+  type        = string
+  default     = "backend-consumer-graphql-api-web"
+}

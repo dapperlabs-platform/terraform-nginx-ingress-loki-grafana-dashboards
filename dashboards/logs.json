@@ -19,7 +19,18 @@
     "fiscalYearStartMonth": 0,
     "graphTooltip": 0,
     "id": 2448,
-    "links": [],
+    "links": [
+      {
+        "icon": "external link",
+        "includeVars": true,
+        "keepTime": true,
+        "tags": [
+          "${PRODUCT_REPLACE}-${ENVIRONMENT_REPLACE}"
+        ],
+        "targetBlank": false,
+        "type": "dashboards"
+      }
+    ],
     "liveNow": false,
     "panels": [
       {
