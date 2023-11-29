@@ -8,6 +8,8 @@ This can help to show your teams what traffic is actually hitting your endpoints
 
 ![logs](img/logs.jpg)
 
+NOTE: These dashboards were inspired by several other publically available dashboards and adjusted for this set.
+
 ## Requirements
 
 | Name | Version |
