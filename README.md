@@ -1,3 +1,13 @@
+# terraform-nginx-ingress-loki-grafana-dashboards
+
+This Terraform module helps to expose nginx metrics gathered by Loki as a Grafana Dashboard.
+
+This can help to show your teams what traffic is actually hitting your endpoints.
+
+![metrics](img/metrics.jpg)
+
+![logs](img/logs.jpg)
+
 ## Requirements
 
 | Name | Version |
